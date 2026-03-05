@@ -1,5 +1,6 @@
 import express from "express";
 import morgan from "morgan";
+import cors from "cors"
 import moviesDataRoutes from "./src/routes/movies.routes.js"
 
 const app = express();
@@ -9,6 +10,7 @@ app.use(express.json());
 
 app.use(morgan("tiny"));
 
+app.use(cors())
 
 app.get("/", async (request, response) => {
     response.json({
@@ -17,7 +19,7 @@ app.get("/", async (request, response) => {
     });
 });
 
-app.get("/data", moviesDataRoutes)
+app.use("/data", moviesDataRoutes)
 
 app.listen(PORT, async () => {
     console.log(`listening on port ${PORT}`);
